@@ -9,7 +9,7 @@ class RetrofitService {
     companion object{
 
         private lateinit var  retrofit: Retrofit
-        private  var  baseUrl ="https://api.github.com/search/repositories?q=language:Java&sort=stars&page=1"
+        private  var  baseUrl ="https://api.github.com"
 
         private fun getRetrofitInstance():Retrofit{
 

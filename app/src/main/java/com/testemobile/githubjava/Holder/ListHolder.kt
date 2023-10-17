@@ -9,8 +9,8 @@ class ListHolder(private val bind: UserListBinding):RecyclerView.ViewHolder(bind
 
   fun bind(repo:RepositorioModel){
 
-    bind.txtreponome.text = repo.username
-    bind.txtrepodesc.text = repo.description
+//    bind.txtreponome.text = repo.id.toString()
+    bind.txtrepodesc.text = repo.username
 
   }
 
