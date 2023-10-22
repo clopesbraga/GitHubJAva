@@ -2,7 +2,7 @@ package com.testemobile.githubjava
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.testemobile.githubjava.Model.RepositorioModel
+import com.testemobile.githubjava.Model.GitHubRepo
 import com.testemobile.githubjava.Retrofit.RepoGetService
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import retrofit2.Call
@@ -15,17 +15,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val remote= RetrofitService.createService(RepoGetService::class.java)
-        val call: Call<List<RepositorioModel>> = remote.list()
+        val call: Call<GitHubRepo> = remote.getItems()
 
-        val response = call.enqueue(object : Callback<List<RepositorioModel>>{
+        val response = call.enqueue(object : Callback<GitHubRepo>{
 
-            override fun onFailure(call:Call<List<RepositorioModel>>,t:Throwable){
+            override fun onFailure(call:Call<GitHubRepo>, t:Throwable){
                 val s = t.message
             }
 
             override fun onResponse(
-                call: Call<List<RepositorioModel>>,
-                response: Response<List<RepositorioModel>>
+                call: Call<GitHubRepo>,
+                response: Response<GitHubRepo>
             ) {
                 val s = response.body()
             }
