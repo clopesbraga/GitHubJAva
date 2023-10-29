@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.testemobile.githubjava.Holder.ListHolder
 import com.testemobile.githubjava.Model.ItemsModel
-import com.testemobile.githubjava.databinding.UserListBinding
+import com.testemobile.githubjava.databinding.RowUserRepoBinding
 
 class ListAdpter:RecyclerView.Adapter<ListHolder>(){
 
@@ -14,7 +14,7 @@ class ListAdpter:RecyclerView.Adapter<ListHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolder {
 
-        val item = UserListBinding.inflate(LayoutInflater.from
+        val item = RowUserRepoBinding.inflate(LayoutInflater.from
                                             (parent.context),parent,false)
 
         return ListHolder(item)
@@ -37,5 +37,7 @@ class ListAdpter:RecyclerView.Adapter<ListHolder>(){
         notifyDataSetChanged()
 
     }
+
+
 
 }
