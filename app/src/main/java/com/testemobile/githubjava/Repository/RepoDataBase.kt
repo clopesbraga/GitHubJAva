@@ -13,30 +13,33 @@ import com.testemobile.githubjava.Model.ItemsModel
 
 abstract class RepoDataBase:RoomDatabase () {
 
-    private lateinit var DBINSTANCE: RepoDataBase
+
 
     abstract fun ItemDAO(): ItemDAO
 
-    fun getDatabase(context: Context): RepoDataBase {
-        if (!::DBINSTANCE.isInitialized) {
-            synchronized(RepoDataBase::class) {
-                DBINSTANCE =
-                    Room.databaseBuilder(context, RepoDataBase::class.java, "DbGitHub")
-                        .addMigrations(MIGRATION_3_4)
-                        .allowMainThreadQueries()
-                        .build()
+    companion object{
+
+        private lateinit var DBINSTANCE: RepoDataBase
+        fun getDatabase(context: Context): RepoDataBase {
+            if (!::DBINSTANCE.isInitialized) {
+                synchronized(RepoDataBase::class) {
+                    DBINSTANCE =
+                        Room.databaseBuilder(context, RepoDataBase::class.java, "DbGitHub")
+                            .addMigrations(MIGRATION_3_4)
+                            .allowMainThreadQueries()
+                            .build()
+                }
             }
+            return DBINSTANCE
         }
-        return DBINSTANCE
-    }
 
-    private val MIGRATION_3_4: Migration = object : Migration(3, 4) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("DELETE FROM Login")
-            database.execSQL("DELETE FROM Compras")
-            database.execSQL("DELETE FROM Lista")
+        private val MIGRATION_3_4: Migration = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+
+            }
 
         }
 
     }
+
 }
