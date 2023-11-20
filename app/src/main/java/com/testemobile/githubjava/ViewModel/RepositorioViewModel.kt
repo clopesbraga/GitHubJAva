@@ -1,6 +1,5 @@
 package com.testemobile.githubjava.ViewModel
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import com.testemobile.githubjava.Model.GitHubRepo
 import com.testemobile.githubjava.Retrofit.RepoGetService
@@ -9,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RepositorioViewModel(application: Application): ViewModel()  {
+class RepositorioViewModel:ViewModel()  {
 
     private lateinit var response:Call<*>
 
