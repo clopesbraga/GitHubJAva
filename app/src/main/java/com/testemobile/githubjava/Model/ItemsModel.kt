@@ -26,7 +26,7 @@ data class ItemsModel(
     val numeroForks: String? = null,
 
     @SerializedName("owner")
-    val owner: OwnerModel?
+    val owner: OwnerModelRepo?
 )
 
 data class OwnerModel(

@@ -8,23 +8,23 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.testemobile.githubjava.DAO.ItemDAO
 import com.testemobile.githubjava.Model.ItemsModel
+import com.testemobile.githubjava.Model.ItemsModelRepo
+import com.testemobile.githubjava.Model.OwnerModelRepo
 
-@Database(entities = arrayOf((ItemsModel::class)), version = 1)
+@Database(entities = arrayOf((ItemsModelRepo::class),(OwnerModelRepo::class)), version = 1)
 
-abstract class RepoDataBase:RoomDatabase () {
-
-
+abstract class AppDataBase:RoomDatabase () {
 
     abstract fun ItemDAO(): ItemDAO
 
     companion object{
 
-        private lateinit var DBINSTANCE: RepoDataBase
-        fun getDatabase(context: Context): RepoDataBase {
+        private lateinit var DBINSTANCE: AppDataBase
+        fun getDatabase(context: Context): AppDataBase {
             if (!::DBINSTANCE.isInitialized) {
-                synchronized(RepoDataBase::class) {
+                synchronized(AppDataBase::class) {
                     DBINSTANCE =
-                        Room.databaseBuilder(context, RepoDataBase::class.java, "DbGitHub")
+                        Room.databaseBuilder(context, AppDataBase::class.java, "DbGitHub")
                             .addMigrations(MIGRATION_3_4)
                             .allowMainThreadQueries()
                             .build()
