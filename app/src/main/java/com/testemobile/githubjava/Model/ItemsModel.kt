@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 data class GitHubRepo(
 
     @SerializedName("total_count")
-    val totalCont: Long,
+    var totalCont: Long,
     @SerializedName("items")
-    val items: MutableList<ItemsModel>,
+    var items: MutableList<ItemsModel>,
 
     )
 

@@ -1,7 +1,10 @@
 package com.testemobile.githubjava.ViewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.testemobile.githubjava.Model.GitHubRepo
+import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Retrofit.RepoGetService
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import retrofit2.Call
@@ -10,7 +13,9 @@ import retrofit2.Response
 
 class RepositorioViewModel:ViewModel()  {
 
-    private lateinit var response:Call<*>
+    private lateinit var items: ItemsModel
+    private var listItems = MutableLiveData<ItemsModel>()
+    val mitems: LiveData<ItemsModel> = listItems
 
     fun requestGitHubRepo(){
         val remote= RetrofitService.createService(RepoGetService::class.java)
@@ -25,19 +30,23 @@ class RepositorioViewModel:ViewModel()  {
                 call: Call<GitHubRepo>,
                 response: Response<GitHubRepo>
             ) {
-                val s = response.body()
-
+                response.body()!!.items.getItems()
             }
 
         })
     }
 
-    fun listRepos(){
+  private fun List<ItemsModel>.getItems()= map{
 
+      ItemsModel(
 
-
-
-    }
-
-
+          nomeRepositorio = it.nomeRepositorio,
+          descricaoRepositorio = it.descricaoRepositorio,
+          nomeAutor = it.nomeAutor,
+          fotoAutor = it.fotoAutor,
+          numeroStars= it.numeroStars,
+          numeroForks = it.numeroForks,
+          owner = it.owner
+      )
+  }
 }

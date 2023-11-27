@@ -7,9 +7,10 @@ import com.testemobile.githubjava.Holder.ListHolder
 import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.databinding.RowUserRepoBinding
 
-class ListAdpter:RecyclerView.Adapter<ListHolder>(){
+class ListAdpter(private var repoList:List <ItemsModel> )
+                                    :RecyclerView.Adapter<ListHolder>(){
 
-    private var repoList: List<ItemsModel> = listOf()
+//    private var repoList: List<ItemsModel> = listOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolder {
@@ -31,9 +32,9 @@ class ListAdpter:RecyclerView.Adapter<ListHolder>(){
         return repoList.count()
     }
 
-    fun atualizaListaRepositorio(list : List<ItemsModel>){
+    fun atualizaListaRepositorio(list: ItemsModel){
 
-        repoList = list
+        repoList = listOf(list)
         notifyDataSetChanged()
 
     }
