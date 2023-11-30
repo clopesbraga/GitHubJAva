@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.ListAdpter
-import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.FragmentListBinding
-import org.koin.android.ext.android.inject
 
 
 class ListFragment : Fragment() {
@@ -18,10 +17,12 @@ class ListFragment : Fragment() {
     private lateinit var _binding: FragmentListBinding
     private val binding get()= _binding
     private val adpater = ListAdpter(mutableListOf())
-    private val viewModel : RepositorioViewModel by inject()
+    private lateinit var viewmodel : RepositorioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewmodel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
 
 
     }
@@ -40,6 +41,8 @@ class ListFragment : Fragment() {
         //CHAMA ADAPTER DOS PRODUTOS
         binding.ltvList.adapter= adpater
 
+        viewmodel.listAllItems()
+
         return binding.root
 
     }
@@ -53,7 +56,7 @@ class ListFragment : Fragment() {
 
     private fun observe(){
 
-        viewModel.mitems.observe(viewLifecycleOwner){
+        viewmodel.items.observe(viewLifecycleOwner){
 
             adpater.atualizaListaRepositorio(it)
         }

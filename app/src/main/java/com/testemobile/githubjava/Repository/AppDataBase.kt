@@ -6,16 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.testemobile.githubjava.DAO.ItemDAO
-import com.testemobile.githubjava.Model.ItemsModel
+import com.testemobile.githubjava.DAO.IItemDAO
 import com.testemobile.githubjava.Model.ItemsModelRepo
-import com.testemobile.githubjava.Model.OwnerModelRepo
 
-@Database(entities = arrayOf((ItemsModelRepo::class),(OwnerModelRepo::class)), version = 1)
+@Database(entities = arrayOf((ItemsModelRepo::class)), version = 1)
 
 abstract class AppDataBase:RoomDatabase () {
 
-    abstract fun ItemDAO(): ItemDAO
+    abstract fun ItemDAO(): IItemDAO
 
     companion object{
 
@@ -24,8 +22,8 @@ abstract class AppDataBase:RoomDatabase () {
             if (!::DBINSTANCE.isInitialized) {
                 synchronized(AppDataBase::class) {
                     DBINSTANCE =
-                        Room.databaseBuilder(context, AppDataBase::class.java, "DbGitHub")
-                            .addMigrations(MIGRATION_3_4)
+                        Room.databaseBuilder(context, AppDataBase::class.java, "AppDataBase")
+                            .addMigrations(MIGRATION_1_2)
                             .allowMainThreadQueries()
                             .build()
                 }
@@ -33,8 +31,8 @@ abstract class AppDataBase:RoomDatabase () {
             return DBINSTANCE
         }
 
-        private val MIGRATION_3_4: Migration = object : Migration(3, 4) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+        private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
 
             }
 

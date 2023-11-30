@@ -5,11 +5,10 @@ import androidx.room.Insert
 
 import androidx.room.Query
 import androidx.room.Update
-import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Model.ItemsModelRepo
 
 @Dao
-interface ItemDAO{
+interface IItemDAO{
 
     @Insert
     fun save(nome:ItemsModelRepo):Long

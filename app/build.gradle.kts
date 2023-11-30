@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
+    id ("kotlin-kapt")
 }
 
 android {
@@ -42,7 +44,7 @@ android {
 dependencies {
 
     // Koin for Android
-    implementation ("io.insert-koin:koin-android:3.2.0")
+    implementation ("io.insert-koin:koin-android:3.4.0")
 //    implementation ("io.insert-koin:koin-android-viewmodel:3.2.0")
 //    implementation ("io.insert-koin:koin-androidx-scope:3.2.0")
 
@@ -50,17 +52,20 @@ dependencies {
     //DEPENDENCIAS COMUNS ANDROID
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.recyclerview:recyclerview:1.3.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
 
 
 
     //DEPENDENCIAS COMUNICACAO WEB
-    implementation("com.squareup.retrofit2:retrofit:2.5.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.3.0")
-    implementation ("androidx.room:room-runtime:2.5.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //BANCO E DADOS ROOM
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     //DEPENDENCIAS DE TESTE
     testImplementation("junit:junit:4.13.2")

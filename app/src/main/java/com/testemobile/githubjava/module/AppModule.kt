@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    viewModel{RepositorioViewModel()}
+//    viewModel{RepositorioViewModel(get())}
 }
 
