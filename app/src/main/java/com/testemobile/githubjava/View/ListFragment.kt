@@ -8,27 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.ListAdpter
-import com.testemobile.githubjava.Model.GitHubRepo
-import com.testemobile.githubjava.Retrofit.RepoGetService
-import com.testemobile.githubjava.Retrofit.RetrofitService
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.FragmentListBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class ListFragment : Fragment() {
 
     private lateinit var _binding: FragmentListBinding
     private val binding get()= _binding
-    private val adpater = ListAdpter()
-    private lateinit var viewModel : RepositorioViewModel
+    private val adpater = ListAdpter(mutableListOf())
+    private lateinit var viewmodel : RepositorioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel =  ViewModelProvider(this).get(RepositorioViewModel::class.java)
-        viewModel.requestGitHubRepo()
+        viewmodel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
+
 
     }
 
@@ -36,6 +31,7 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
 
         _binding = FragmentListBinding.inflate(inflater,container,false)
 
@@ -45,14 +41,25 @@ class ListFragment : Fragment() {
         //CHAMA ADAPTER DOS PRODUTOS
         binding.ltvList.adapter= adpater
 
-        observe()
+        viewmodel.listAllItems()
 
         return binding.root
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        observe()
+
+    }
+
     private fun observe(){
 
+        viewmodel.items.observe(viewLifecycleOwner){
+
+            adpater.atualizaListaRepositorio(it)
+        }
 
     }
 

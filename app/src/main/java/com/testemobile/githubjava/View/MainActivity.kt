@@ -1,19 +1,18 @@
 package com.testemobile.githubjava
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.testemobile.githubjava.Model.GitHubRepo
-import com.testemobile.githubjava.Retrofit.RepoGetService
-import com.testemobile.githubjava.Retrofit.RetrofitService
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.testemobile.githubjava.View.ListFragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.testemobile.githubjava.ViewModel.RepositorioViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var  btnlista: Button
+    private lateinit var viewModel: RepositorioViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,6 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+//        viewModel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
+//        viewModel.requestGitHubRepo()
 
         btnlista.setOnClickListener{
 
