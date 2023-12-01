@@ -17,9 +17,9 @@ import retrofit2.Response
 class RepositorioViewModel(application : Application):AndroidViewModel(application)  {
 
     private val repository = GithubRepository(application.applicationContext)
-    private var listitens = MutableLiveData<ItemsModelRepo>()
+    private var listitens = MutableLiveData<List<ItemsModelRepo>>()
 
-    val items: LiveData<ItemsModelRepo>  get()=listitens
+    val items: LiveData<List<ItemsModelRepo>>  get()=listitens
 
 
     fun requestGitHubRepo(){

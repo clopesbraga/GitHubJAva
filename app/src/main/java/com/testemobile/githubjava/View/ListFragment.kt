@@ -16,7 +16,7 @@ class ListFragment : Fragment() {
 
     private lateinit var _binding: FragmentListBinding
     private val binding get()= _binding
-    private val adpater = ListAdpter(mutableListOf())
+    private val adpater = ListAdpter()
     private lateinit var viewmodel : RepositorioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

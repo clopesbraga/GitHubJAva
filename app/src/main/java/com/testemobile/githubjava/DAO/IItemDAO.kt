@@ -20,5 +20,5 @@ interface IItemDAO{
     fun get(id:Int): ItemsModelRepo
 
     @Query(value="Select * from Items")
-    fun listAll(): ItemsModelRepo
+    fun listAll():List<ItemsModelRepo>
 }

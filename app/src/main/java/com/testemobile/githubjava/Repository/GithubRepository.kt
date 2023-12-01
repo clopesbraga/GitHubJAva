@@ -19,7 +19,7 @@ class GithubRepository(context: Context) {
 //         return base.update(id)
 //    }
 
-         fun listAll(): ItemsModelRepo {
+         fun listAll(): List<ItemsModelRepo> {
          return base.listAll()
     }
 

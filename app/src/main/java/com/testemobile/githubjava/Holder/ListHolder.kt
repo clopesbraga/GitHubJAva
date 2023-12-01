@@ -1,7 +1,6 @@
 package com.testemobile.githubjava.Holder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Model.ItemsModelRepo
 import com.testemobile.githubjava.Utils.CarregaImagem
 import com.testemobile.githubjava.databinding.RowUserRepoBinding
