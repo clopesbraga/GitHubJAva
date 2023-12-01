@@ -49,8 +49,8 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
 
           nomeRepositorio = it.nomeRepositorio,
           descricaoRepositorio = it.descricaoRepositorio,
-          nomeAutor = it.nomeAutor,
-          fotoAutor = it.fotoAutor,
+          nomeAutor = it.owner?.login?:"",
+          fotoAutor = it.owner?.avatarUrl?:"",
           numeroStars= it.numeroStars,
           numeroForks = it.numeroForks,
           owner = it.owner

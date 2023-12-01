@@ -9,6 +9,6 @@ import androidx.room.Entity
     @ColumnInfo(name="login")
     var login: String=""
 
-    @ColumnInfo(name="avatarUrl")
+    @ColumnInfo(name="avatar_url")
     val avatarUrl: String=""
 }

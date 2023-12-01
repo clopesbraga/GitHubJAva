@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-//        viewModel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
-//        viewModel.requestGitHubRepo()
+        viewModel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
+        viewModel.requestGitHubRepo()
 
         btnlista.setOnClickListener{
 
