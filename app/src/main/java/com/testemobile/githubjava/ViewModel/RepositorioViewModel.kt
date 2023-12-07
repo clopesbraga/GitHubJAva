@@ -9,22 +9,22 @@ import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Model.ItemsModelRepo
 import com.testemobile.githubjava.Repository.GithubRepository
 import com.testemobile.githubjava.Retrofit.RepoGetService
+import com.testemobile.githubjava.Retrofit.RequestRepoEndpoint
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RepositorioViewModel(application : Application):AndroidViewModel(application)  {
+class RepositorioViewModel(application : Application):AndroidViewModel(application){
 
     private val repository = GithubRepository(application.applicationContext)
     private var listitens = MutableLiveData<List<ItemsModelRepo>>()
 
     val items: LiveData<List<ItemsModelRepo>>  get()=listitens
 
-
     fun requestGitHubRepo(){
-        val remote= RetrofitService.createService(RepoGetService::class.java)
-        val call: Call<GitHubRepo> = remote.getItems()
+        val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
+        val call: Call<GitHubRepo> = remote.getItems("2")
         val response = call.enqueue(object : Callback<GitHubRepo> {
 
             override fun onFailure(call: Call<GitHubRepo>, t:Throwable){
@@ -39,14 +39,12 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
                 registryItems(response.body()!!.items.getItems())
 
             }
-
         })
     }
 
   private fun List<ItemsModel>.getItems()= map{
 
       ItemsModel(
-
           nomeRepositorio = it.nomeRepositorio,
           descricaoRepositorio = it.descricaoRepositorio,
           nomeAutor = it.owner?.login?:"",
@@ -59,24 +57,18 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
 
     fun registryItems(items: List<ItemsModel>){
 
-        for(i in 0 ..29){
+        for(item in items){
             val itemsRepo = ItemsModelRepo().apply {
 
-                    this.nomeRepositorio      = items[i].nomeRepositorio.toString()
-                    this.descricaoRepositorio = items[i].descricaoRepositorio.toString()
-                    this.nomeAutor            = items[i].nomeAutor.toString()
-                    this.fotoAutor            = items[i].fotoAutor.toString()
-                    this.numeroForks          = items[i].numeroForks.toString()
-                    this.numeroStars          = items[i].numeroStars.toString()
-
+                    this.nomeRepositorio      = item.nomeRepositorio.toString()
+                    this.descricaoRepositorio = item.descricaoRepositorio.toString()
+                    this.nomeAutor            = item.nomeAutor.toString()
+                    this.fotoAutor            = item.fotoAutor.toString()
+                    this.numeroForks          = item.numeroForks.toString()
+                    this.numeroStars          = item.numeroStars.toString()
             }
             repository.save(itemsRepo)
         }
     }
-
-    fun listAllItems(){
-
-       listitens.value= repository.listAll()
-    }
-
+    fun listAllItems(){ listitens.value= repository.listAll() }
   }
