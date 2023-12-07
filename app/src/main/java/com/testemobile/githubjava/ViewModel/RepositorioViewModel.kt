@@ -8,7 +8,6 @@ import com.testemobile.githubjava.Model.GitHubRepo
 import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Model.ItemsModelRepo
 import com.testemobile.githubjava.Repository.GithubRepository
-import com.testemobile.githubjava.Retrofit.RepoGetService
 import com.testemobile.githubjava.Retrofit.RequestRepoEndpoint
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import retrofit2.Call
