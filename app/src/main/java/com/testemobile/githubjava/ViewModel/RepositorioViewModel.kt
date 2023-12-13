@@ -17,44 +17,12 @@ import retrofit2.Response
 class RepositorioViewModel(application : Application):AndroidViewModel(application){
 
     private val repository = GithubRepository(application.applicationContext)
-    private var listitens = MutableLiveData<List<ItemsModelRepo>>()
+    private var listitens = MutableLiveData<List<ItemsModel>>()
+    private var locallistitens = MutableLiveData<List<ItemsModelRepo>>()
 
-    val items: LiveData<List<ItemsModelRepo>>  get()=listitens
+    val items: LiveData<List<ItemsModel>>  get()=listitens
 
-    fun requestGitHubRepo(){
-        val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
-        val call: Call<GitHubRepo> = remote.getItems("2")
-        val response = call.enqueue(object : Callback<GitHubRepo> {
-
-            override fun onFailure(call: Call<GitHubRepo>, t:Throwable){
-                val s = t.message
-            }
-
-            override fun onResponse(
-                call: Call<GitHubRepo>,
-                response: Response<GitHubRepo>
-            ) {
-//                response.body()!!.items.getItems()
-                registryItems(response.body()!!.items.getItems())
-
-            }
-        })
-    }
-
-  private fun List<ItemsModel>.getItems()= map{
-
-      ItemsModel(
-          nomeRepositorio = it.nomeRepositorio,
-          descricaoRepositorio = it.descricaoRepositorio,
-          nomeAutor = it.owner?.login?:"",
-          fotoAutor = it.owner?.avatarUrl?:"",
-          numeroStars= it.numeroStars,
-          numeroForks = it.numeroForks,
-          owner = it.owner
-      )
-  }
-
-    fun registryItems(items: List<ItemsModel>){
+    fun LocalregistryItems(items: List<ItemsModel>){
 
         for(item in items){
             val itemsRepo = ItemsModelRepo().apply {
@@ -69,5 +37,5 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
             repository.save(itemsRepo)
         }
     }
-    fun listAllItems(){ listitens.value= repository.listAll() }
+   fun listAllLocalItems(){ locallistitens.value= repository.listAll() }
   }

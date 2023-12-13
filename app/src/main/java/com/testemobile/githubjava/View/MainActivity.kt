@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var  btnProximo: Button
     lateinit var txtNumPage : TextView
     lateinit var txtNum : TextView
-    private lateinit var viewModel: RepositorioViewModel
+    private var page =1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,28 +31,29 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        viewModel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
-
         btnProximo.setOnClickListener {
-            txtNum.text="2"
-            buttonAction("2")
+            page++
+            txtNum.text=page.toString()
+            buttonAction(page.toString())
         }
 
         btnAnterior.setOnClickListener {
-            txtNum.text="1"
-            buttonAction("1")
+            page--
+            txtNum.text= page.toString()
+            buttonAction(page.toString())
         }
 
     }
 
     fun buttonAction(page: String){
 
-            viewModel.requestGitHubRepo(page)
             val fragment = ListFragment()
+            val args = Bundle()
+            args.putString("page",page)
+            fragment.arguments = args
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit()
     }
-
 }
