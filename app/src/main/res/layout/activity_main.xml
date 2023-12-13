@@ -26,28 +26,28 @@
 
 
         <Button
-            android:id="@+id/btnlista"
+            android:id="@+id/btnAnterior"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left"
-            android:text="Button" />
+            android:text="voltar" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnProximo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:text="Button" />
+            android:text="Próximo" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtNumPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="NUMERO PAGINA" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txtPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
