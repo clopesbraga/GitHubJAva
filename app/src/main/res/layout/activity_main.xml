@@ -26,10 +26,32 @@
 
 
         <Button
-            android:id="@+id/btnlista"
+            android:id="@+id/btnAnterior"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:text="voltar" />
+
+        <Button
+            android:id="@+id/btnProximo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="Próximo" />
+
+        <TextView
+            android:id="@+id/txtNumPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_gravity="center_horizontal"
+            android:text="NUMERO PAGINA" />
+
+        <TextView
+            android:id="@+id/txtPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="PAGINA" />
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

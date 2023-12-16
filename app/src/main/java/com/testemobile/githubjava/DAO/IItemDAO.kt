@@ -18,4 +18,7 @@ interface IItemDAO{
 
     @Query(value="Select * from Items where id =:id")
     fun get(id:Int): ItemsModelRepo
+
+    @Query(value="Select * from Items")
+    fun listAll():List<ItemsModelRepo>
 }
