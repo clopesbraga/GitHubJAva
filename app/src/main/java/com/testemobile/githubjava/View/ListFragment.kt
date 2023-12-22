@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.ListAdpter
 import com.testemobile.githubjava.Model.GitHubRepo
-import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Retrofit.RequestRepoEndpoint
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
@@ -23,7 +22,7 @@ class ListFragment : Fragment() {
 
     private lateinit var _binding: FragmentListBinding
     private val binding get()= _binding
-    private lateinit  var adapter: ListAdpter
+    lateinit  var adapter: ListAdpter
     private lateinit var viewmodel : RepositorioViewModel
     private var page : String?=""
 
@@ -45,9 +44,19 @@ class ListFragment : Fragment() {
         //CHAMA RECYCLERVIEW DOS PRODUTOS
         binding.ltvList.layoutManager = LinearLayoutManager(context)
 
+        chargeListOfRepo(page)
+
+//        viewmodel.listAllLocalItems()
+
+        return binding.root
+
+    }
+
+    fun chargeListOfRepo(pagina:String?){
+
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
-        val call: Call<GitHubRepo> = remote.getItems(page.toString())
-        val response = call.enqueue(object : Callback<GitHubRepo> {
+        val call: Call<GitHubRepo> = remote.getItems(pagina)
+        call.enqueue(object : Callback<GitHubRepo> {
 
             override fun onResponse(
                 call: Call<GitHubRepo>,
@@ -64,11 +73,6 @@ class ListFragment : Fragment() {
                 val s = t.message
             }
         })
-
-
-//        viewmodel.listAllLocalItems()
-
-        return binding.root
 
     }
 
