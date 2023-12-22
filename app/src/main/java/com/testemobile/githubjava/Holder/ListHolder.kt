@@ -1,16 +1,21 @@
 package com.testemobile.githubjava.Holder
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.testemobile.githubjava.Model.RepositorioModel
-import com.testemobile.githubjava.databinding.UserListBinding
+import com.testemobile.githubjava.Model.ItemsModel
+import com.testemobile.githubjava.Model.ItemsModelRepo
+import com.testemobile.githubjava.Utils.CarregaImagem
+import com.testemobile.githubjava.databinding.RowUserRepoBinding
 
-class ListHolder(private val bind: UserListBinding):RecyclerView.ViewHolder(bind.root) {
+class ListHolder(private val bind: RowUserRepoBinding):RecyclerView.ViewHolder(bind.root) {
 
-  fun bind(repo:RepositorioModel){
+  fun bind(repo: ItemsModel){
 
-    bind.txtreponome.text = repo.nome
-    bind.txtrepodesc.text = repo.descricao
+    bind.txtNomeAutor.text = repo.owner?.login
+    bind.txtreponome.text = repo.nomeRepositorio
+    bind.txtrepodesc.text = repo.descricaoRepositorio
+    bind.txtNumForks.text = repo.numeroForks
+    bind.txtNumStars.text = repo.numeroStars
+    bind.imgAutor.CarregaImagem(repo.owner?.avatarUrl)
 
   }
 
