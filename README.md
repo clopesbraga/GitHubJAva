@@ -13,7 +13,7 @@
       * [RXJava](https://reactivex.io/)
 <!--te-->
 
-### Features
+## Features
 
 - [x] Listagem de repositórios com maior quantidade de Pull requests no GitHub
 - [x] Listagem dos pull requests feitos de cada repositório
