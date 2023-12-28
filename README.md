@@ -5,12 +5,14 @@
 
 - Projeto voltado a demostrar os meus conhecimentos de desenvolvimento de software.
 
-## Tecnoloagias usadas
+## Tecnoloagias que serão utilizadas
 <!--ts-->
    * Frameworks
       * [Room](https://developer.android.com/codelabs/basic-android-kotlin-training-intro-room-flow?hl=pt-br#0)
       * [Retrofit](https://square.github.io/retrofit/)
       * [RXJava](https://reactivex.io/)
+      * [Junit](https://developer.android.com/training/testing/local-tests?hl=pt-br)
+      * [Mockito](https://developer.android.com/training/testing/local-tests?hl=pt-br](https://site.mockito.org/))
 <!--te-->
 
 ## Features
