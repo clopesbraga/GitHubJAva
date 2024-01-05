@@ -1,12 +1,16 @@
 package com.testemobile.githubjava.Adapter
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.testemobile.githubjava.Holder.ListHolder
 import com.testemobile.githubjava.Model.ItemsModel
-import com.testemobile.githubjava.Model.ItemsModelRepo
-import com.testemobile.githubjava.databinding.RowUserRepoBinding
+import com.testemobile.githubjava.View.PullRequestActivity
+import com.testemobile.githubjava.databinding.RowOfReposBinding
 
 class ListAdpter(itemsList: List<ItemsModel>):RecyclerView.Adapter<ListHolder>(){
 
@@ -15,16 +19,29 @@ class ListAdpter(itemsList: List<ItemsModel>):RecyclerView.Adapter<ListHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListHolder {
 
-        val item = RowUserRepoBinding.inflate(LayoutInflater.from
+        val item = RowOfReposBinding.inflate(LayoutInflater.from
                                             (parent.context),parent,false)
 
         return ListHolder(item)
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(holder: ListHolder, position: Int) {
 
         holder.bind(repoList[position])
+
+        holder.cardRowRepo.setOnClickListener(View.OnClickListener {
+
+            Log.d("Clique","Card_selecionado")
+
+            val intent = Intent(holder.itemView.context, PullRequestActivity::class.java)
+
+                intent.putExtra("criador", repoList[position].owner?.login)
+                intent.putExtra("repositorio", repoList[position].nomeRepositorio)
+
+            holder.itemView.context.startActivity(intent)
+        })
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +54,5 @@ class ListAdpter(itemsList: List<ItemsModel>):RecyclerView.Adapter<ListHolder>()
         repoList = list
         notifyDataSetChanged()
     }
-
-
 
 }

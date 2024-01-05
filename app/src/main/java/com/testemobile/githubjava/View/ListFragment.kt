@@ -12,7 +12,7 @@ import com.testemobile.githubjava.Model.GitHubRepo
 import com.testemobile.githubjava.Retrofit.RequestRepoEndpoint
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
-import com.testemobile.githubjava.databinding.FragmentListBinding
+import com.testemobile.githubjava.databinding.FragmentRepoListBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class ListFragment : Fragment() {
 
-    private lateinit var _binding: FragmentListBinding
+    private lateinit var _binding: FragmentRepoListBinding
     private val binding get()= _binding
     lateinit  var adapter: ListAdpter
     private lateinit var viewmodel : RepositorioViewModel
@@ -39,7 +39,7 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentListBinding.inflate(inflater,container,false)
+        _binding = FragmentRepoListBinding.inflate(inflater,container,false)
 
         //CHAMA RECYCLERVIEW DOS PRODUTOS
         binding.ltvList.layoutManager = LinearLayoutManager(context)
