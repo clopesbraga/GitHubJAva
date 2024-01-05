@@ -1,8 +1,6 @@
 package com.testemobile.githubjava.Holder
 
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import com.testemobile.githubjava.Model.PullRequestModel
 import com.testemobile.githubjava.databinding.RowOfPullRequestItemBinding
 

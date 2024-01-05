@@ -3,8 +3,6 @@ package com.testemobile.githubjava.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import com.testemobile.githubjava.Holder.PullRequestHolder
 import com.testemobile.githubjava.Model.PullRequestModel
 import com.testemobile.githubjava.databinding.RowOfPullRequestItemBinding
