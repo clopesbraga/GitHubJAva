@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.testemobile.githubjava.View.ListFragment
-import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var  btnAnterior: Button
-    lateinit var  btnProximo: Button
-    lateinit var txtNumPage : TextView
-    lateinit var txtNum : TextView
-    private var page =1
+  private lateinit var  btnAnterior: Button
+  private lateinit var  btnProximo: Button
+  private lateinit var txtNumPage : TextView
+  private lateinit var txtNum : TextView
+  private var page : Int =1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,21 +29,38 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        txtNum.text=page.toString()
+        chargeRepoList(page.toString())
+
         btnProximo.setOnClickListener {
             page++
             txtNum.text=page.toString()
-            buttonAction(page.toString())
+            chargeRepoList(page.toString())
         }
 
         btnAnterior.setOnClickListener {
             page--
-            txtNum.text= page.toString()
-            buttonAction(page.toString())
+            if(isMinimumPage(page)) {
+                txtNum.text = page.toString()
+            }else{
+                txtNum.text = page.toString()
+                chargeRepoList(page.toString())
+            }
         }
 
     }
 
-    fun buttonAction(page: String){
+   private fun isMinimumPage(page: Int): Boolean{
+
+        if(page<1){
+            this.page =1
+            return true
+        }
+
+        return false
+    }
+
+  private fun chargeRepoList(page: String){
 
             val fragment = ListFragment()
             val args = Bundle()

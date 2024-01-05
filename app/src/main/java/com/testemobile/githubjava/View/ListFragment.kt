@@ -9,11 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.ListAdpter
 import com.testemobile.githubjava.Model.GitHubRepo
-import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.Retrofit.RequestRepoEndpoint
 import com.testemobile.githubjava.Retrofit.RetrofitService
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
-import com.testemobile.githubjava.databinding.FragmentListBinding
+import com.testemobile.githubjava.databinding.FragmentRepoListBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,9 +20,9 @@ import retrofit2.Response
 
 class ListFragment : Fragment() {
 
-    private lateinit var _binding: FragmentListBinding
+    private lateinit var _binding: FragmentRepoListBinding
     private val binding get()= _binding
-    private lateinit  var adapter: ListAdpter
+    lateinit  var adapter: ListAdpter
     private lateinit var viewmodel : RepositorioViewModel
     private var page : String?=""
 
@@ -40,14 +39,24 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentListBinding.inflate(inflater,container,false)
+        _binding = FragmentRepoListBinding.inflate(inflater,container,false)
 
         //CHAMA RECYCLERVIEW DOS PRODUTOS
         binding.ltvList.layoutManager = LinearLayoutManager(context)
 
+        chargeListOfRepo(page)
+
+//        viewmodel.listAllLocalItems()
+
+        return binding.root
+
+    }
+
+    fun chargeListOfRepo(pagina:String?){
+
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
-        val call: Call<GitHubRepo> = remote.getItems(page.toString())
-        val response = call.enqueue(object : Callback<GitHubRepo> {
+        val call: Call<GitHubRepo> = remote.getItems(pagina)
+        call.enqueue(object : Callback<GitHubRepo> {
 
             override fun onResponse(
                 call: Call<GitHubRepo>,
@@ -64,11 +73,6 @@ class ListFragment : Fragment() {
                 val s = t.message
             }
         })
-
-
-//        viewmodel.listAllLocalItems()
-
-        return binding.root
 
     }
 
