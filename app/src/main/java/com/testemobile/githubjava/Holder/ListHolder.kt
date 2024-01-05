@@ -2,11 +2,12 @@ package com.testemobile.githubjava.Holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.testemobile.githubjava.Model.ItemsModel
-import com.testemobile.githubjava.Model.ItemsModelRepo
 import com.testemobile.githubjava.Utils.CarregaImagem
-import com.testemobile.githubjava.databinding.RowUserRepoBinding
+import com.testemobile.githubjava.databinding.RowOfReposBinding
 
-class ListHolder(private val bind: RowUserRepoBinding):RecyclerView.ViewHolder(bind.root) {
+class ListHolder(val bind: RowOfReposBinding):RecyclerView.ViewHolder(bind.root) {
+
+  val cardRowRepo=bind.cardRowRepo
 
   fun bind(repo: ItemsModel){
 
