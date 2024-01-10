@@ -1,6 +1,8 @@
 package com.testemobile.githubjava.View
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +11,7 @@ import com.testemobile.githubjava.Model.PullRequestModel
 import com.testemobile.githubjava.Model.User
 import com.testemobile.githubjava.NetWork.PullRequestEndpoint
 import com.testemobile.githubjava.NetWork.RetrofitService
+import com.testemobile.githubjava.R
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.ActivityPullRequestBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -50,7 +53,7 @@ class PullRequestActivity : AppCompatActivity() {
     fun chargeListOfPullRequest(autor: String, repo: String) {
 
         val remote = RetrofitService.createService(PullRequestEndpoint::class.java)
-        val call= remote.getPullRequest(autor,repo)
+        val response= remote.getPullRequest(autor,repo)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -64,7 +67,7 @@ class PullRequestActivity : AppCompatActivity() {
 
                         listpullrequest.add(PullRequestModel(
                             tituloPullRequests = getUser?.asJsonObject?.get("title").toString(),
-                            dataPullRequests = getUser?.asJsonObject?.get("created_at").toString(),
+                            dataPullRequests = formataDataString(getUser?.asJsonObject?.get("created_at").toString()),
                             body = getUser?.asJsonObject?.get("body").toString() ,
                             user = User(login = getUser?.getAsJsonObject("user")?.get("login").toString()),
                         ))
@@ -77,13 +80,15 @@ class PullRequestActivity : AppCompatActivity() {
                 adapter = PullRequestAdapter(listpullrequest)
                 _binding.ltvPullRequest.adapter= adapter
 
-            },{
-                val s = it.message
+            },{ it ->
+                it.message?.let { Log.d("PULLREQUEST_ERROR",it) }
+                Toast.makeText(this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG).show()
             })
     }
 
-    fun formataString(text: String): String {
-        var textModified = text.substring(1, text.length - 1)
+    fun formataDataString(dataText: String): String {
+        var textModified = dataText.substring(1, dataText.length - 1)
+        textModified = textModified.substring(0,10)
         return textModified
     }
 

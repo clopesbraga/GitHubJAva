@@ -62,7 +62,7 @@ class ListFragment : Fragment() {
 
             },{
                 it.message?.let { Log.d("REPO_ERROR", it) }
-                Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
             })
     }
 
