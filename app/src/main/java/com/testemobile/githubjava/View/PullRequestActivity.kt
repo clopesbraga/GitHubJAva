@@ -56,7 +56,7 @@ class PullRequestActivity : AppCompatActivity() {
             .subscribe({
 
                 val objeto = it.asJsonArray
-                var i: Int =0
+                var i=0
                 try{
                     objeto?.asJsonArray?.forEach {
                         val getUsers = objeto?.asJsonArray?.get(i)

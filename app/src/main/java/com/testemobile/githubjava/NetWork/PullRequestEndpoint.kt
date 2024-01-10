@@ -2,7 +2,6 @@ package com.testemobile.githubjava.NetWork
 
 import com.google.gson.JsonArray
 import io.reactivex.Maybe
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
