@@ -2,4 +2,5 @@
     <string name="app_name">GitHubJava</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="list_repositorios_error">Falha ao trazer repositórios</string>
 </resources>

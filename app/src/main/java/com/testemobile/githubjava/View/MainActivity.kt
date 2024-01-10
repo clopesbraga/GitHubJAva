@@ -9,11 +9,16 @@ import com.testemobile.githubjava.View.ListFragment
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+
+        private var  PAGE : Int=1
+    }
+
   private lateinit var  btnAnterior: Button
   private lateinit var  btnProximo: Button
   private lateinit var txtNumPage : TextView
   private lateinit var txtNum : TextView
-  private var page : Int =1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +34,31 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        txtNum.text=page.toString()
-        chargeRepoList(page.toString())
+        txtNum.text=PAGE.toString()
+        chargeRepoList(PAGE.toString())
 
         btnProximo.setOnClickListener {
-            page++
-            txtNum.text=page.toString()
-            chargeRepoList(page.toString())
+            PAGE++
+            txtNum.text=PAGE.toString()
+            chargeRepoList(PAGE.toString())
         }
 
         btnAnterior.setOnClickListener {
-            page--
-            if(isMinimumPage(page)) {
-                txtNum.text = page.toString()
+            PAGE--
+            if(isMinimumPage()) {
+                txtNum.text = PAGE.toString()
             }else{
-                txtNum.text = page.toString()
-                chargeRepoList(page.toString())
+                txtNum.text = PAGE.toString()
+                chargeRepoList(PAGE.toString())
             }
         }
 
     }
 
-   private fun isMinimumPage(page: Int): Boolean{
+   private fun isMinimumPage(): Boolean{
 
-        if(page<1){
-            this.page =1
+        if(PAGE<1){
+            PAGE =1
             return true
         }
 
