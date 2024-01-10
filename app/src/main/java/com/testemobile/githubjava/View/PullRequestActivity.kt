@@ -4,17 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.JsonArray
 import com.testemobile.githubjava.Adapter.PullRequestAdapter
 import com.testemobile.githubjava.Model.PullRequestModel
 import com.testemobile.githubjava.Model.User
-import com.testemobile.githubjava.Retrofit.PullRequestEndpoint
-import com.testemobile.githubjava.Retrofit.RetrofitService
+import com.testemobile.githubjava.NetWork.PullRequestEndpoint
+import com.testemobile.githubjava.NetWork.RetrofitService
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.ActivityPullRequestBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class PullRequestActivity : AppCompatActivity() {
 
@@ -46,18 +44,18 @@ class PullRequestActivity : AppCompatActivity() {
         super.onResume()
 
         chargeListOfPullRequest(criador,repositorio)
-//        observe()
+        observe()
     }
 
     fun chargeListOfPullRequest(autor: String, repo: String) {
 
         val remote = RetrofitService.createService(PullRequestEndpoint::class.java)
-        val call: Call<JsonArray> = remote.getPullRequest(autor,repo)
-        call.enqueue(object : Callback<JsonArray> {
+        val call= remote.getPullRequest(autor,repo)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
 
-            override fun onResponse(call: Call<JsonArray>, response: Response<JsonArray>) {
-
-                val objeto = response.body()?.asJsonArray
+                val objeto = it.asJsonArray
                 var i: Int =0
                 try{
                     objeto?.asJsonArray?.forEach {
@@ -69,25 +67,19 @@ class PullRequestActivity : AppCompatActivity() {
                             dataPullRequests = getUser?.asJsonObject?.get("created_at").toString(),
                             body = getUser?.asJsonObject?.get("body").toString() ,
                             user = User(login = getUser?.getAsJsonObject("user")?.get("login").toString()),
-
                         ))
                         i++
                     }
 
                 }catch(e:Exception){
-
                     e.message
                 }
                 adapter = PullRequestAdapter(listpullrequest)
                 _binding.ltvPullRequest.adapter= adapter
 
-            }
-
-            override fun onFailure(call: Call<JsonArray>, t: Throwable) {
-                val s = t.message
-            }
-        })
-
+            },{
+                val s = it.message
+            })
     }
 
     fun formataString(text: String): String {
@@ -95,12 +87,12 @@ class PullRequestActivity : AppCompatActivity() {
         return textModified
     }
 
-//    private fun observe(){
-//
-//        viewmodel.pullrequest.observe(this){
-//
-//            adapter.atualizaListaRepositorio(it)
-//        }
-//
-//    }
+    private fun observe(){
+
+        viewmodel.pullitems.observe(this){
+
+            adapter.atualizaListaRepositorio(it)
+        }
+
+    }
 }
