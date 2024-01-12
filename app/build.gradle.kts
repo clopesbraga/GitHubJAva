@@ -45,8 +45,6 @@ dependencies {
 
     // Koin for Android
     implementation ("io.insert-koin:koin-android:3.4.0")
-//    implementation ("io.insert-koin:koin-android-viewmodel:3.2.0")
-//    implementation ("io.insert-koin:koin-androidx-scope:3.2.0")
 
 
     //DEPENDENCIAS COMUNS ANDROID
@@ -57,15 +55,20 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
 
-
-
     //DEPENDENCIAS COMUNICACAO WEB
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation( "com.squareup.retrofit2:adapter-rxjava2:2.3.0")
 
     //BANCO E DADOS ROOM
     implementation ("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    //RX
+    implementation("com.jakewharton.rxbinding2:rxbinding:2.0.0")
+    implementation ("io.reactivex.rxjava2:rxandroid:2.0.1")
+    implementation ("io.reactivex.rxjava2:rxjava:2.1.1")
+
 
     //DEPENDENCIAS DE TESTE
     testImplementation("junit:junit:4.13.2")

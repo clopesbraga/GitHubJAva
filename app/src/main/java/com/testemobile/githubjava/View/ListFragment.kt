@@ -1,21 +1,23 @@
 package com.testemobile.githubjava.View
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.ListAdpter
-import com.testemobile.githubjava.Model.GitHubRepo
-import com.testemobile.githubjava.Retrofit.RequestRepoEndpoint
-import com.testemobile.githubjava.Retrofit.RetrofitService
+import com.testemobile.githubjava.NetWork.RequestRepoEndpoint
+import com.testemobile.githubjava.NetWork.RetrofitService
+import com.testemobile.githubjava.R
 import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.FragmentRepoListBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 
 
 class ListFragment : Fragment() {
@@ -40,45 +42,32 @@ class ListFragment : Fragment() {
     ): View {
 
         _binding = FragmentRepoListBinding.inflate(inflater,container,false)
-
-        //CHAMA RECYCLERVIEW DOS PRODUTOS
         binding.ltvList.layoutManager = LinearLayoutManager(context)
 
         chargeListOfRepo(page)
 
-//        viewmodel.listAllLocalItems()
-
         return binding.root
-
     }
 
     fun chargeListOfRepo(pagina:String?){
 
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
-        val call: Call<GitHubRepo> = remote.getItems(pagina)
-        call.enqueue(object : Callback<GitHubRepo> {
+        val response= remote.getItems(pagina)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
 
-            override fun onResponse(
-                call: Call<GitHubRepo>,
-                response: Response<GitHubRepo>
-            ) {
-
-                adapter= ListAdpter(response.body()!!.items)
-
-                //CHAMA ADAPTER DOS PRODUTOS
+                adapter= ListAdpter(it.items)
                 binding.ltvList.adapter= adapter
-            }
 
-            override fun onFailure(call: Call<GitHubRepo>, t:Throwable){
-                val s = t.message
-            }
-        })
-
+            },{
+                it.message?.let { Log.d("REPO_ERROR", it) }
+                Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
+            })
     }
 
     override fun onResume() {
         super.onResume()
-
         observe()
     }
 
