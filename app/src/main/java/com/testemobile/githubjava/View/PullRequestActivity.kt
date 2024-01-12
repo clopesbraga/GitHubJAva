@@ -62,28 +62,38 @@ class PullRequestActivity : AppCompatActivity() {
                 var i=0
                 try{
                     objeto?.asJsonArray?.forEach {
-                        val getUsers = objeto?.asJsonArray?.get(i)
-                        val getUser = getUsers?.asJsonObject
+                        val listausuariospullrequest = objeto?.asJsonArray?.get(i)
+                        val usuariopullrequest = listausuariospullrequest?.asJsonObject
 
                         listpullrequest.add(PullRequestModel(
-                            tituloPullRequests = getUser?.asJsonObject?.get("title").toString(),
-                            dataPullRequests = formataDataString(getUser?.asJsonObject?.get("created_at").toString()),
-                            body = getUser?.asJsonObject?.get("body").toString() ,
-                            user = User(login = getUser?.getAsJsonObject("user")?.get("login").toString()),
+                            tituloPullRequests = formataString(usuariopullrequest?.asJsonObject?.get("title").toString()),
+                            dataPullRequests = formataDataString(usuariopullrequest?.asJsonObject?.get("created_at").toString()),
+                            body = formataString(usuariopullrequest?.asJsonObject?.get("body").toString()) ,
+                            user = User(login = formataString(usuariopullrequest?.getAsJsonObject("user")?.get("login").toString())),
                         ))
                         i++
                     }
 
                 }catch(e:Exception){
-                    e.message
+                    e.message?.let { Log.d("PULLREQUEST_ERROR",it) }
+                    Toast.makeText(
+                        this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
+                    ).show()
                 }
                 adapter = PullRequestAdapter(listpullrequest)
                 _binding.ltvPullRequest.adapter= adapter
 
             },{ it ->
                 it.message?.let { Log.d("PULLREQUEST_ERROR",it) }
-                Toast.makeText(this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
+                ).show()
             })
+    }
+
+    fun formataString(text: String): String {
+        var textModified = text.substring(1, text.length - 1)
+        return textModified
     }
 
     fun formataDataString(dataText: String): String {
