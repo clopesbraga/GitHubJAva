@@ -49,8 +49,9 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    fun chargeListOfRepo(pagina:String?){
+    fun chargeListOfRepo(pagina:String?):Boolean{
 
+        var operation =false
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
         val response= remote.getItems(pagina)
             .subscribeOn(Schedulers.io())
@@ -60,10 +61,16 @@ class ListFragment : Fragment() {
                 adapter= ListAdpter(it.items)
                 binding.ltvList.adapter= adapter
 
-            },{
+                operation = false
+
+            }) {
                 it.message?.let { Log.d("REPO_ERROR", it) }
                 Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
-            })
+
+                operation = true
+
+            }
+        return operation
     }
 
     override fun onResume() {
