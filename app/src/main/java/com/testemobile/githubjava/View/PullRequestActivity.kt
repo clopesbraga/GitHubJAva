@@ -47,7 +47,7 @@ class PullRequestActivity : AppCompatActivity() {
         super.onResume()
 
         chargeListOfPullRequest(criador,repositorio)
-        observe()
+
     }
 
     fun chargeListOfPullRequest(autor: String, repo: String) {
@@ -102,12 +102,4 @@ class PullRequestActivity : AppCompatActivity() {
         return textModified
     }
 
-    private fun observe(){
-
-        viewmodel.pullitems.observe(this){
-
-            adapter.atualizaListaRepositorio(it)
-        }
-
-    }
 }

@@ -12,6 +12,9 @@ data class GitHubRepo(
     )
 
 data class ItemsModel(
+
+    @SerializedName("id")
+    val id : Int?=0,
     @SerializedName("name")
     val nomeRepositorio: String? = null,
     @SerializedName("description")
