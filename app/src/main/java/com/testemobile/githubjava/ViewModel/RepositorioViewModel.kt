@@ -13,7 +13,6 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
 
     private val repository = GithubRepository(application.applicationContext)
     private var listitens = MutableLiveData<List<ItemsModel>>()
-    private var listpull = MutableLiveData<List<PullRequestModel>>()
 
     val items: LiveData<List<ItemsModel>>  get()=listitens
 

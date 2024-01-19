@@ -24,7 +24,7 @@ class ListFragment : Fragment() {
 
     private lateinit var _binding: FragmentRepoListBinding
     private val binding get()= _binding
-    lateinit  var adapter: ListAdpter
+    private lateinit  var adapter: ListAdpter
     private lateinit var viewmodel : RepositorioViewModel
     private var page : String?=""
 
@@ -61,8 +61,6 @@ class ListFragment : Fragment() {
                 adapter= ListAdpter(it.items)
                 viewmodel.verifyExistInLocalData(it.items)
                 binding.ltvList.adapter= adapter
-
-
 
                 operation = false
 
