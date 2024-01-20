@@ -49,10 +49,11 @@ class ListAdpter(itemsList: List<ItemsModel>):RecyclerView.Adapter<ListHolder>()
         return repoList.count()
     }
 
-    fun atualizaListaRepositorio(list: List<ItemsModel>){
+    fun atualizaListaRepositorio(list: List<ItemsModel>):List<ItemsModel>{
 
         repoList = list
         notifyDataSetChanged()
+        return repoList
     }
 
 }

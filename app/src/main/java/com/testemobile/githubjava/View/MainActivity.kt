@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.testemobile.githubjava.View.ListFragment
+import com.testemobile.githubjava.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,20 +16,23 @@ class MainActivity : AppCompatActivity() {
         private var  PAGE : Int=1
     }
 
+  private lateinit var _binding: ActivityMainBinding
   private lateinit var  btnAnterior: Button
   private lateinit var  btnProximo: Button
-  private lateinit var txtNumPage : TextView
-  private lateinit var txtNum : TextView
+  private lateinit var  txtNumPage : TextView
+  private lateinit var  txtNum : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        btnAnterior = findViewById(R.id.btnAnterior)
-        btnProximo =  findViewById(R.id.btnProximo)
 
-        txtNumPage = findViewById((R.id.txtNumPage))
-        txtNum =  findViewById((R.id.txtPage))
+        intialSetup()
+
+        btnAnterior = _binding.btnAnterior
+        btnProximo =  _binding.btnProximo
+
+        txtNumPage = _binding.txtNumPage
+        txtNum =     _binding.txtNumPage
 
     }
 
@@ -76,4 +81,21 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
+
+    private fun intialSetup(){
+
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
+
+        setUpBar()
+    }
+
+    private fun setUpBar(){
+        val toolbar: Toolbar = _binding.toolbar
+        val titleTextColor = _binding.toolbar.resources.getColor(R.color.white)
+
+        setSupportActionBar(toolbar)
+        toolbar.setTitleTextColor(titleTextColor)
+    }
+
 }

@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.testemobile.githubjava.DAO.IItemDAO
 import com.testemobile.githubjava.Model.ItemsModelRepo
 
-@Database(entities = arrayOf((ItemsModelRepo::class)), version = 1)
+@Database(entities = arrayOf((ItemsModelRepo::class)), version = 2)
 
 abstract class AppDataBase:RoomDatabase () {
 
@@ -23,7 +23,7 @@ abstract class AppDataBase:RoomDatabase () {
                 synchronized(AppDataBase::class) {
                     DBINSTANCE =
                         Room.databaseBuilder(context, AppDataBase::class.java, "AppDataBase")
-                            .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION)
                             .allowMainThreadQueries()
                             .build()
                 }
@@ -31,8 +31,9 @@ abstract class AppDataBase:RoomDatabase () {
             return DBINSTANCE
         }
 
-        private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+        private val MIGRATION: Migration = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("DELETE FROM Items")
 
             }
 

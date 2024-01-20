@@ -24,7 +24,7 @@ class ListFragment : Fragment() {
 
     private lateinit var _binding: FragmentRepoListBinding
     private val binding get()= _binding
-    lateinit  var adapter: ListAdpter
+    private lateinit  var adapter: ListAdpter
     private lateinit var viewmodel : RepositorioViewModel
     private var page : String?=""
 
@@ -49,8 +49,9 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    fun chargeListOfRepo(pagina:String?){
+    fun chargeListOfRepo(pagina:String?):Boolean{
 
+        var operation =false
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
         val response= remote.getItems(pagina)
             .subscribeOn(Schedulers.io())
@@ -58,12 +59,19 @@ class ListFragment : Fragment() {
             .subscribe({
 
                 adapter= ListAdpter(it.items)
+                viewmodel.verifyExistInLocalData(it.items)
                 binding.ltvList.adapter= adapter
 
-            },{
+                operation = false
+
+            }) {
                 it.message?.let { Log.d("REPO_ERROR", it) }
                 Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
-            })
+
+                operation = true
+
+            }
+        return operation
     }
 
     override fun onResume() {

@@ -13,17 +13,15 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
 
     private val repository = GithubRepository(application.applicationContext)
     private var listitens = MutableLiveData<List<ItemsModel>>()
-    private var locallistitens = MutableLiveData<List<ItemsModelRepo>>()
-    private var listpull = MutableLiveData<List<PullRequestModel>>()
 
     val items: LiveData<List<ItemsModel>>  get()=listitens
-    val pullitems: LiveData<List<PullRequestModel>>  get()=listpull
 
-    fun LocalregistryItems(items: List<ItemsModel>){
+    fun verifyExistInLocalData(items: List<ItemsModel>){
 
         for(item in items){
             val itemsRepo = ItemsModelRepo().apply {
 
+                    this.id                   = item.id
                     this.nomeRepositorio      = item.nomeRepositorio.toString()
                     this.descricaoRepositorio = item.descricaoRepositorio.toString()
                     this.nomeAutor            = item.nomeAutor.toString()
@@ -31,8 +29,13 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
                     this.numeroForks          = item.numeroForks.toString()
                     this.numeroStars          = item.numeroStars.toString()
             }
-            repository.save(itemsRepo)
+            if(repository.listAll().isEmpty()){
+
+                repository.save(itemsRepo)
+
+            }else{repository.update(itemsRepo)}
         }
+
     }
-   fun listAllLocalItems(){ locallistitens.value= repository.listAll() }
+
   }

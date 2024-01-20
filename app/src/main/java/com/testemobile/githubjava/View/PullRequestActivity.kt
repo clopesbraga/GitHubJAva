@@ -1,9 +1,11 @@
 package com.testemobile.githubjava.View
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.PullRequestAdapter
@@ -23,18 +25,14 @@ class PullRequestActivity : AppCompatActivity() {
     private lateinit var criador : String
     private lateinit var repositorio : String
     private lateinit var viewmodel : RepositorioViewModel
+    private lateinit var toolbar : Toolbar
     private lateinit var adapter: PullRequestAdapter
     private lateinit var listpullrequest : MutableList<PullRequestModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewmodel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
-
-        _binding = ActivityPullRequestBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
-
-        _binding.ltvPullRequest.layoutManager = LinearLayoutManager(this)
+        intialSetup()
 
         criador = intent.getStringExtra("criador").toString()
         repositorio= intent.getStringExtra("repositorio").toString()
@@ -47,7 +45,6 @@ class PullRequestActivity : AppCompatActivity() {
         super.onResume()
 
         chargeListOfPullRequest(criador,repositorio)
-        observe()
     }
 
     fun chargeListOfPullRequest(autor: String, repo: String) {
@@ -91,23 +88,47 @@ class PullRequestActivity : AppCompatActivity() {
             })
     }
 
-    fun formataString(text: String): String {
+   private fun formataString(text: String): String {
         var textModified = text.substring(1, text.length - 1)
         return textModified
     }
 
-    fun formataDataString(dataText: String): String {
+   private fun formataDataString(dataText: String): String {
         var textModified = dataText.substring(1, dataText.length - 1)
         textModified = textModified.substring(0,10)
         return textModified
     }
 
-    private fun observe(){
+    private fun intialSetup(){
 
-        viewmodel.pullitems.observe(this){
+        viewmodel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
+        _binding = ActivityPullRequestBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
 
-            adapter.atualizaListaRepositorio(it)
-        }
+        setUpBar()
+
+        _binding.ltvPullRequest.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setUpBar(){
+        toolbar = _binding.toolbar
+
+        val titleTextColor = _binding.toolbar.resources.getColor(R.color.white)
+        val leftArrow = _binding.toolbar.resources.getDrawable(com.google.android.material.R.drawable.material_ic_keyboard_arrow_left_black_24dp)
+        leftArrow.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_ATOP)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(leftArrow)
+
+        toolbar.setTitleTextColor(titleTextColor)
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 }

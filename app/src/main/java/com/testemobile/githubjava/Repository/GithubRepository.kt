@@ -11,10 +11,10 @@ class GithubRepository(context: Context) {
         return base.save(items)>0
     }
 
-//     fun update(id: ItemsModelRepo): Int {
-//        TODO("Not yet implemented")
-//    }
-//
+     fun update(id: ItemsModelRepo): Int {
+       return base.update(id)
+    }
+
 //     fun get(id: Int): Int {
 //         return base.update(id)
 //    }
