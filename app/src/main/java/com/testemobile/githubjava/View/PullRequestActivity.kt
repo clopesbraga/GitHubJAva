@@ -1,5 +1,6 @@
 package com.testemobile.githubjava.View
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -104,12 +105,25 @@ class PullRequestActivity : AppCompatActivity() {
         _binding = ActivityPullRequestBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
+        setUpBar()
+
+        _binding.ltvPullRequest.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setUpBar(){
         toolbar = _binding.toolbar
+
+        val titleTextColor = _binding.toolbar.resources.getColor(R.color.white)
+        val leftArrow = _binding.toolbar.resources.getDrawable(com.google.android.material.R.drawable.material_ic_keyboard_arrow_left_black_24dp)
+        leftArrow.setColorFilter(resources.getColor(R.color.white), PorterDuff.Mode.SRC_ATOP)
+
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(leftArrow)
 
-        _binding.ltvPullRequest.layoutManager = LinearLayoutManager(this)
+        toolbar.setTitleTextColor(titleTextColor)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
