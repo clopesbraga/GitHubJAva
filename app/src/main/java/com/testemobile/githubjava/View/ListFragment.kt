@@ -19,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-
 class ListFragment : Fragment() {
 
     private lateinit var _binding: FragmentRepoListBinding
@@ -65,7 +64,7 @@ class ListFragment : Fragment() {
                 operation = false
 
             }) {
-                it.message?.let { Log.d("REPO_ERROR", it) }
+                it.message?.let { Log.d(R.string.repository_error.toString(),it) }
                 Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
 
                 operation = true

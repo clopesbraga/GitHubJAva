@@ -72,7 +72,7 @@ class PullRequestActivity : AppCompatActivity() {
                     }
 
                 }catch(e:Exception){
-                    e.message?.let { Log.d("PULLREQUEST_ERROR",it) }
+                    e.message?.let { Log.d(R.string.pull_request_error.toString(),it) }
                     Toast.makeText(
                         this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
                     ).show()
@@ -81,7 +81,7 @@ class PullRequestActivity : AppCompatActivity() {
                 _binding.ltvPullRequest.adapter= adapter
 
             },{ it ->
-                it.message?.let { Log.d("PULLREQUEST_ERROR",it) }
+                it.message?.let { Log.d(R.string.pull_request_error.toString(),it) }
                 Toast.makeText(
                     this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
                 ).show()
@@ -97,7 +97,7 @@ class PullRequestActivity : AppCompatActivity() {
         var textModified = dataText.substring(1, dataText.length - 1)
         textModified = textModified.substring(0,10)
         return textModified
-    }
+   }
 
     private fun intialSetup(){
 
