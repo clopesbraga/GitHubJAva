@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpBar(){
         val toolbar: Toolbar = _binding.toolbar
-        val titleTextColor = _binding.toolbar.resources.getColor(R.color.white)
+        val titleTextColor = _binding.toolbar.resources.getColor(R.color.white,theme)
 
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(titleTextColor)
