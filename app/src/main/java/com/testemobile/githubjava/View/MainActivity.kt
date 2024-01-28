@@ -1,12 +1,11 @@
 package com.testemobile.githubjava
 
+import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isInvisible
 import com.testemobile.githubjava.View.ListFragment
 import com.testemobile.githubjava.databinding.ActivityMainBinding
 
@@ -30,52 +29,27 @@ class MainActivity : AppCompatActivity() {
 
         intialSetup()
 
-        btnAnterior = _binding.btnAnterior
-        btnProximo =  _binding.btnProximo
-
-        btnAnterior.visibility = View.INVISIBLE
-
-        txtNumPage = _binding.txtNumPage
-        txtNum =     _binding.txtNumPage
-
     }
 
     override fun onResume() {
         super.onResume()
 
-        txtNum.text=PAGE.toString()
-        chargeRepoList(PAGE.toString())
-
+        numberPageSetup()
         buttonSetup()
-
-    }
-
-   private fun isMinimumPage(): Boolean{
-
-        if(PAGE<=0){
-            PAGE =1
-            return true
-        }
-
-        return false
-    }
-
-  private fun chargeRepoList(page: String){
-
-            val fragment = ListFragment()
-            val args = Bundle()
-            args.putString("page",page)
-            fragment.arguments = args
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
     }
 
     private fun intialSetup(){
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding.root)
+
+        btnAnterior = _binding.btnAnterior
+        btnProximo =  _binding.btnProximo
+
+        desableBackButton()
+
+        txtNumPage = _binding.txtNumPage
+        txtNum =     _binding.txtNumPage
 
         setUpBar()
     }
@@ -88,11 +62,17 @@ class MainActivity : AppCompatActivity() {
         toolbar.setTitleTextColor(titleTextColor)
     }
 
+    private fun numberPageSetup(){
+        txtNum.text=PAGE.toString()
+        chargeRepoList(PAGE.toString())
+    }
+
     private fun buttonSetup(){
 
         btnProximo.setOnClickListener {
             PAGE++
-            btnAnterior.visibility = View.VISIBLE
+
+            enableBackButton()
             txtNum.text=PAGE.toString()
             chargeRepoList(PAGE.toString())
         }
@@ -100,16 +80,46 @@ class MainActivity : AppCompatActivity() {
         btnAnterior.setOnClickListener {
             PAGE--
             if(isMinimumPage()) {
-                btnAnterior.visibility = View.INVISIBLE
+                desableBackButton()
                 txtNum.text = PAGE.toString()
 
             }else{
-                btnAnterior.visibility = View.VISIBLE
+                enableBackButton()
                 txtNum.text = PAGE.toString()
                 chargeRepoList(PAGE.toString())
             }
         }
+    }
 
+    private fun chargeRepoList(page: String){
+
+        val fragment = ListFragment()
+        val args = Bundle()
+        args.putString("page",page)
+        fragment.arguments = args
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun isMinimumPage(): Boolean{
+
+        if(PAGE<=0){
+            PAGE =1
+            return true
+        }
+        return false
+    }
+
+    private fun enableBackButton(){
+        btnAnterior.setBackgroundColor(Color.parseColor("#6750A4"))
+        btnAnterior.isEnabled = true
+    }
+
+    private fun desableBackButton(){
+        btnAnterior.setBackgroundColor(Color.LTGRAY)
+        btnAnterior.isEnabled = false
     }
 
 }
