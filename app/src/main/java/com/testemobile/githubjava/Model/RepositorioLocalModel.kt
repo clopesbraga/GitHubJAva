@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Items")
- class ItemsModelRepo (
+@Entity(tableName = "Repositorios")
+ class RepositorioLocalModel (
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="id")
