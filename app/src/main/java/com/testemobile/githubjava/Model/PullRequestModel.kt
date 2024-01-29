@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class PullRequestModel(
 
+
     @SerializedName("title")
     var tituloPullRequests: String,
 

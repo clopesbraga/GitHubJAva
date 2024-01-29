@@ -5,20 +5,20 @@ import androidx.room.Insert
 
 import androidx.room.Query
 import androidx.room.Update
-import com.testemobile.githubjava.Model.ItemsModelRepo
+import com.testemobile.githubjava.Model.RepositorioLocalModel
 
 @Dao
 interface IItemDAO{
 
     @Insert
-    fun save(nome:ItemsModelRepo):Long
+    fun save(nome:RepositorioLocalModel):Long
 
     @Update
-    fun update(id: ItemsModelRepo):Int
+    fun update(id: RepositorioLocalModel):Int
 
-    @Query(value="Select * from Items where id =:id")
-    fun get(id:Int): ItemsModelRepo
+    @Query(value="Select * from Repositorios where id =:id")
+    fun get(id:Int): RepositorioLocalModel
 
-    @Query(value="Select * from Items")
-    fun listAll():List<ItemsModelRepo>
+    @Query(value="Select * from Repositorios")
+    fun listAll():List<RepositorioLocalModel>
 }

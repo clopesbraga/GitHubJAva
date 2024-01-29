@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.ListAdpter
 import com.testemobile.githubjava.NetWork.RequestRepoEndpoint
@@ -17,7 +16,7 @@ import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.FragmentRepoListBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-
+import org.koin.android.ext.android.inject
 
 
 class ListFragment : Fragment() {
@@ -25,13 +24,12 @@ class ListFragment : Fragment() {
     private lateinit var _binding: FragmentRepoListBinding
     private val binding get()= _binding
     private lateinit  var adapter: ListAdpter
-    private lateinit var viewmodel : RepositorioViewModel
+    private val viewmodel : RepositorioViewModel  by  inject()
     private var page : String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewmodel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
         page = arguments?.getString("page")
 
     }
@@ -65,7 +63,7 @@ class ListFragment : Fragment() {
                 operation = false
 
             }) {
-                it.message?.let { Log.d("REPO_ERROR", it) }
+                it.message?.let { Log.d(R.string.repository_error.toString(),it) }
                 Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
 
                 operation = true

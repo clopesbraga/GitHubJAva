@@ -5,8 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.testemobile.githubjava.Model.ItemsModel
-import com.testemobile.githubjava.Model.ItemsModelRepo
-import com.testemobile.githubjava.Model.PullRequestModel
+import com.testemobile.githubjava.Model.RepositorioLocalModel
 import com.testemobile.githubjava.Repository.GithubRepository
 
 class RepositorioViewModel(application : Application):AndroidViewModel(application){
@@ -19,7 +18,7 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
     fun verifyExistInLocalData(items: List<ItemsModel>){
 
         for(item in items){
-            val itemsRepo = ItemsModelRepo().apply {
+            val repositoriLocalModel = RepositorioLocalModel().apply {
 
                     this.id                   = item.id
                     this.nomeRepositorio      = item.nomeRepositorio.toString()
@@ -31,9 +30,9 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
             }
             if(repository.listAll().isEmpty()){
 
-                repository.save(itemsRepo)
+                repository.save(repositoriLocalModel)
 
-            }else{repository.update(itemsRepo)}
+            }else{repository.update(repositoriLocalModel)}
         }
 
     }
