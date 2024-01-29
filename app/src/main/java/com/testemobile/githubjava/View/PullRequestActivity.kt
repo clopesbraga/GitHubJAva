@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testemobile.githubjava.Adapter.PullRequestAdapter
 import com.testemobile.githubjava.Model.PullRequestModel
@@ -14,20 +13,21 @@ import com.testemobile.githubjava.Model.User
 import com.testemobile.githubjava.NetWork.PullRequestEndpoint
 import com.testemobile.githubjava.NetWork.RetrofitService
 import com.testemobile.githubjava.R
-import com.testemobile.githubjava.ViewModel.RepositorioViewModel
+import com.testemobile.githubjava.ViewModel.PullRequestViewModel
 import com.testemobile.githubjava.databinding.ActivityPullRequestBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.koin.android.ext.android.inject
 
 class PullRequestActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityPullRequestBinding
     private lateinit var criador : String
     private lateinit var repositorio : String
-    private lateinit var viewmodel : RepositorioViewModel
     private lateinit var toolbar : Toolbar
     private lateinit var adapter: PullRequestAdapter
     private lateinit var listpullrequest : MutableList<PullRequestModel>
+    private val viewModel : PullRequestViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,14 +77,19 @@ class PullRequestActivity : AppCompatActivity() {
                         this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
                     ).show()
                 }
+
+                viewModel.verifyExistInLocalData(listpullrequest)
                 adapter = PullRequestAdapter(listpullrequest)
                 _binding.ltvPullRequest.adapter= adapter
+
 
             },{ it ->
                 it.message?.let { Log.d(R.string.pull_request_error.toString(),it) }
                 Toast.makeText(
                     this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
                 ).show()
+
+
             })
     }
 
@@ -101,7 +106,6 @@ class PullRequestActivity : AppCompatActivity() {
 
     private fun intialSetup(){
 
-        viewmodel = ViewModelProvider(this).get(RepositorioViewModel::class.java)
         _binding = ActivityPullRequestBinding.inflate(layoutInflater)
         setContentView(_binding.root)
 
