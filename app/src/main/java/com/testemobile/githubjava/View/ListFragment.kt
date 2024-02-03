@@ -57,7 +57,7 @@ class ListFragment : Fragment() {
             .subscribe({
 
                 adapter= ListAdpter(it.items)
-                viewmodel.sendToLocalData(it.items)
+                viewmodel.verifyExistInLocalData(it.items)
                 binding.ltvList.adapter= adapter
 
                 operation = false

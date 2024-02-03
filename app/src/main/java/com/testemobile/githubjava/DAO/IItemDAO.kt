@@ -17,7 +17,7 @@ interface IItemDAO{
     fun update(id: RepositorioLocalModel):Int
 
     @Query(value="Select * from Repositorios where id =:id")
-    fun get(id:Int): Int
+    fun get(id:Int): RepositorioLocalModel
 
     @Query(value="Select * from Repositorios")
     fun listAll():List<RepositorioLocalModel>
