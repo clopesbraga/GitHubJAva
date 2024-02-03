@@ -19,4 +19,8 @@ class GithubRepository(context: Context) {
          return base.listAll()
     }
 
+    fun getId(id: Int) :Int {
+        return base.get(id)
+    }
+
 }

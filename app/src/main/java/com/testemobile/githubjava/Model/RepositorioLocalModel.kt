@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="id")
-    var id:Int?=0,
+    var id:Int=0,
 
     @ColumnInfo(name="nomeRepositorio")
     var nomeRepositorio : String ="",
