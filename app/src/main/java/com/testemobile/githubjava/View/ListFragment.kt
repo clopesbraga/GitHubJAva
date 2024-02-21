@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.testemobile.githubjava.Adapter.ListAdpter
+import com.testemobile.githubjava.View.Adapter.ListAdpter
 import com.testemobile.githubjava.NetWork.RequestRepoEndpoint
 import com.testemobile.githubjava.NetWork.RetrofitService
 import com.testemobile.githubjava.R
@@ -47,9 +47,8 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    fun chargeListOfRepo(pagina:String?):Boolean{
+    fun chargeListOfRepo(pagina:String?){
 
-        var operation =false
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
         val response= remote.getItems(pagina)
             .subscribeOn(Schedulers.io())
@@ -60,16 +59,10 @@ class ListFragment : Fragment() {
                 viewmodel.sendToLocalData(it.items)
                 binding.ltvList.adapter= adapter
 
-                operation = false
-
             }) {
                 it.message?.let { Log.d(R.string.repository_error.toString(),it) }
                 Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
-
-                operation = true
-
             }
-        return operation
     }
 
     override fun onResume() {

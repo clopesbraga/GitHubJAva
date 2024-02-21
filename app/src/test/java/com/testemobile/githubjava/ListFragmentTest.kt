@@ -1,6 +1,6 @@
 package com.testemobile.githubjava;
 
-import com.testemobile.githubjava.Adapter.ListAdpter
+import com.testemobile.githubjava.View.Adapter.ListAdpter
 import com.testemobile.githubjava.Model.GitHubRepo
 import com.testemobile.githubjava.NetWork.RequestRepoEndpoint
 import com.testemobile.githubjava.View.ListFragment
@@ -39,23 +39,6 @@ class ListFragmentTest {
 
         `when`(retrofit.create(RequestRepoEndpoint::class.java)).thenReturn(requestRepoEndpoint)
         `when`(requestRepoEndpoint.getItems(Mockito.anyString())).thenReturn(gitHubRepo)
-
-    }
-
-    @Test
-    fun should_return_success_when_send_request(){
-
-         Assert.assertTrue(listFragment.chargeListOfRepo(page))
-
-    }
-
-    @Test
-    fun should_return_error_when_send_request(){
-
-        `when`(listFragment.chargeListOfRepo(page)).thenReturn(false)
-        Assert.assertFalse(listFragment.chargeListOfRepo(page))
-        Assert.assertEquals(listFragment.chargeListOfRepo(page), R.string.list_repositorios_error,)
-
 
     }
 

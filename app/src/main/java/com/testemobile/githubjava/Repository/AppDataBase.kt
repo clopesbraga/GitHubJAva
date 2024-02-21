@@ -6,17 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.testemobile.githubjava.DAO.IItemDAO
-import com.testemobile.githubjava.DAO.IpullRequestDAO
+import com.testemobile.githubjava.Repository.DAO.IItemDAO
 import com.testemobile.githubjava.Model.RepositorioLocalModel
-import com.testemobile.githubjava.Model.PullRequestLocalModel
 
-@Database(entities = arrayOf((RepositorioLocalModel::class),(PullRequestLocalModel::class)), version = 4)
+@Database(entities = arrayOf((RepositorioLocalModel::class)), version = 1)
 
 abstract class AppDataBase:RoomDatabase () {
 
     abstract fun ItemDAO(): IItemDAO
-    abstract fun IpullRequestDAO(): IpullRequestDAO
 
     companion object{
 
@@ -34,11 +31,10 @@ abstract class AppDataBase:RoomDatabase () {
             return DBINSTANCE
         }
 
-        private val MIGRATION: Migration = object : Migration(3, 4) {
+        private val MIGRATION: Migration = object : Migration(0, 1) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("DELETE FROM Repositorio")
                 db.execSQL("DELETE FROM Pullrequest")
-
             }
 
         }

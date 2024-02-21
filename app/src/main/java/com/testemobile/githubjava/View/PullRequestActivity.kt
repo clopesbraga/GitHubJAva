@@ -7,17 +7,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.testemobile.githubjava.Adapter.PullRequestAdapter
+import com.testemobile.githubjava.View.Adapter.PullRequestAdapter
 import com.testemobile.githubjava.Model.PullRequestModel
 import com.testemobile.githubjava.Model.User
 import com.testemobile.githubjava.NetWork.PullRequestEndpoint
 import com.testemobile.githubjava.NetWork.RetrofitService
 import com.testemobile.githubjava.R
-import com.testemobile.githubjava.ViewModel.PullRequestViewModel
 import com.testemobile.githubjava.databinding.ActivityPullRequestBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.koin.android.ext.android.inject
 
 class PullRequestActivity : AppCompatActivity() {
 
@@ -27,7 +25,7 @@ class PullRequestActivity : AppCompatActivity() {
     private lateinit var toolbar : Toolbar
     private lateinit var adapter: PullRequestAdapter
     private lateinit var listpullrequest : MutableList<PullRequestModel>
-    private val viewModel : PullRequestViewModel by inject()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +75,6 @@ class PullRequestActivity : AppCompatActivity() {
                         this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
                     ).show()
                 }
-
-                viewModel.verifyExistInLocalData(listpullrequest)
                 adapter = PullRequestAdapter(listpullrequest)
                 _binding.ltvPullRequest.adapter= adapter
 

@@ -1,4 +1,4 @@
-package com.testemobile.githubjava.Holder
+package com.testemobile.githubjava.View.Holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.testemobile.githubjava.Model.PullRequestModel
