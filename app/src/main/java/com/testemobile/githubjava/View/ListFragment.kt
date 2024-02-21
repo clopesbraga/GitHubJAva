@@ -62,8 +62,6 @@ class ListFragment : Fragment() {
             }) {
                 it.message?.let { Log.d(R.string.repository_error.toString(),it) }
                 Toast.makeText(context, R.string.list_repositorios_error, Toast.LENGTH_LONG).show()
-
-
             }
     }
 
