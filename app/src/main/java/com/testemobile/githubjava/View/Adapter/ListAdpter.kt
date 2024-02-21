@@ -1,4 +1,4 @@
-package com.testemobile.githubjava.Adapter
+package com.testemobile.githubjava.View.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.testemobile.githubjava.Holder.ListHolder
+import com.testemobile.githubjava.View.Holder.ListHolder
 import com.testemobile.githubjava.Model.ItemsModel
 import com.testemobile.githubjava.View.PullRequestActivity
 import com.testemobile.githubjava.databinding.RowOfReposBinding

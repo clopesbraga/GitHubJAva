@@ -1,4 +1,4 @@
-package com.testemobile.githubjava.DAO
+package com.testemobile.githubjava.Repository.DAO
 
 import androidx.room.Dao
 import androidx.room.Insert

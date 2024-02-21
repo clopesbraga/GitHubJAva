@@ -1,6 +1,6 @@
 package com.testemobile.githubjava;
 
-import com.testemobile.githubjava.Adapter.ListAdpter
+import com.testemobile.githubjava.View.Adapter.ListAdpter
 import com.testemobile.githubjava.Model.GitHubRepo
 import com.testemobile.githubjava.NetWork.RequestRepoEndpoint
 import com.testemobile.githubjava.View.ListFragment
@@ -45,7 +45,7 @@ class ListFragmentTest {
     @Test
     fun should_return_success_when_send_request(){
 
-         Assert.assertTrue(listFragment.chargeListOfRepo(page))
+         Assert.assertTrue(listFragment.chargeListOfRepo(page)).thenReturn(true)
 
     }
 

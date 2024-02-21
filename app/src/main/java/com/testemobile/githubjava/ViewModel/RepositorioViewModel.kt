@@ -38,13 +38,15 @@ class RepositorioViewModel(application : Application):AndroidViewModel(applicati
         repositoriLocalModel: RepositorioLocalModel,
         item: ItemsModel
     ) {
-
             if (repository.getId(repositoriLocalModel.id) == item.id) {
                 repository.update(repositoriLocalModel)
             } else {
                 repository.save(repositoriLocalModel)
             }
     }
+
+    fun listItens(): List<RepositorioLocalModel> = repository.listAll()
+
 }
 
 

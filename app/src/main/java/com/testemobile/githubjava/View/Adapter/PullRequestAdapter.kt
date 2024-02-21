@@ -1,9 +1,9 @@
-package com.testemobile.githubjava.Adapter
+package com.testemobile.githubjava.View.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.testemobile.githubjava.Holder.PullRequestHolder
+import com.testemobile.githubjava.View.Holder.PullRequestHolder
 import com.testemobile.githubjava.Model.PullRequestModel
 import com.testemobile.githubjava.databinding.RowOfPullRequestItemBinding
 
