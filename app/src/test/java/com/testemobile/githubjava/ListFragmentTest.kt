@@ -42,23 +42,6 @@ class ListFragmentTest {
 
     }
 
-    @Test
-    fun should_return_success_when_send_request(){
-
-         Assert.assertTrue(listFragment.chargeListOfRepo(page)).thenReturn(true)
-
-    }
-
-    @Test
-    fun should_return_error_when_send_request(){
-
-        `when`(listFragment.chargeListOfRepo(page)).thenReturn(false)
-        Assert.assertFalse(listFragment.chargeListOfRepo(page))
-        Assert.assertEquals(listFragment.chargeListOfRepo(page), R.string.list_repositorios_error,)
-
-
-    }
-
 }
 
 

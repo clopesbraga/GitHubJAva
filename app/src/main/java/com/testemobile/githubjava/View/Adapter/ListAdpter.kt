@@ -31,17 +31,17 @@ class ListAdpter(itemsList: List<ItemsModel>):RecyclerView.Adapter<ListHolder>()
 
         holder.bind(repoList[position])
 
-        holder.cardRowRepo.setOnClickListener(View.OnClickListener {
+        holder.cardRowRepo.setOnClickListener {
 
-            Log.d("Clique","Card_selecionado")
+            Log.d("Clique", "Card_selecionado")
 
             val intent = Intent(holder.itemView.context, PullRequestActivity::class.java)
 
-                intent.putExtra("criador", repoList[position].owner?.login)
-                intent.putExtra("repositorio", repoList[position].nomeRepositorio)
+            intent.putExtra("criador", repoList[position].owner?.login)
+            intent.putExtra("repositorio", repoList[position].nomeRepositorio)
 
             holder.itemView.context.startActivity(intent)
-        })
+        }
     }
 
     override fun getItemCount(): Int {

@@ -49,7 +49,6 @@ class ListFragment : Fragment() {
 
     fun chargeListOfRepo(pagina:String?){
 
-        var operation =false
         val remote= RetrofitService.createService(RequestRepoEndpoint::class.java)
         val response= remote.getItems(pagina)
             .subscribeOn(Schedulers.io())
