@@ -10,7 +10,7 @@
    * Frameworks
       * [Room](https://developer.android.com/codelabs/basic-android-kotlin-training-intro-room-flow?hl=pt-br#0)
       * [Retrofit](https://square.github.io/retrofit/)
-      * [RXJava](https://reactivex.io/)
+      * [Coroutines](https://developer.android.com/kotlin/coroutines?hl=pt-br)
       * [Junit](https://developer.android.com/training/testing/local-tests?hl=pt-br)
       * [Mockito](https://developer.android.com/training/testing/local-tests?hl=pt-br](https://site.mockito.org/))
 <!--te-->
