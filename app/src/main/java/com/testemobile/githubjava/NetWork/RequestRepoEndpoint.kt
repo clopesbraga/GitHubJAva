@@ -1,7 +1,9 @@
-package com.testemobile.githubjava.Retrofit
+package com.testemobile.githubjava.NetWork
 
 import com.testemobile.githubjava.Model.GitHubRepo
+import io.reactivex.Maybe
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,6 +17,6 @@ interface RequestRepoEndpoint {
     }
 
     @GET(REPO_ENDPOINT)
-    fun getItems(@Query("page=1") numberPage: String?) : Call<GitHubRepo>
+    suspend fun getItems(@Query("page=1") numberPage: String?) : Response<GitHubRepo>
 
 }

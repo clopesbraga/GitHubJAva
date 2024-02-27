@@ -1,5 +1,6 @@
-package com.testemobile.githubjava.Retrofit
+package com.testemobile.githubjava.NetWork
 
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -11,7 +12,7 @@ class RetrofitService {
         private lateinit var  retrofit: Retrofit
         private  var  baseUrl ="https://api.github.com"
 
-        private fun getRetrofitInstance():Retrofit{
+        private fun getNetWorkInstance():Retrofit{
 
             val httpClient = OkHttpClient.Builder()
 
@@ -21,12 +22,13 @@ class RetrofitService {
                     .baseUrl(baseUrl)
                     .client(httpClient.build())
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
             }
             return retrofit
         }
         fun<S> createService(servicesClass:Class<S>):S{
-            return getRetrofitInstance().create(servicesClass)
+            return getNetWorkInstance().create(servicesClass)
         }
 
     }
