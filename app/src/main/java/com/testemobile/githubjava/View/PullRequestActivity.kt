@@ -13,94 +13,51 @@ import com.testemobile.githubjava.Model.User
 import com.testemobile.githubjava.NetWork.PullRequestEndpoint
 import com.testemobile.githubjava.NetWork.RetrofitService
 import com.testemobile.githubjava.R
+import com.testemobile.githubjava.ViewModel.PullRequestViewModel
+import com.testemobile.githubjava.ViewModel.RepositorioViewModel
 import com.testemobile.githubjava.databinding.ActivityPullRequestBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PullRequestActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityPullRequestBinding
-    private lateinit var criador : String
-    private lateinit var repositorio : String
-    private lateinit var toolbar : Toolbar
+    private lateinit var criador: String
+    private lateinit var repositorio: String
+    private lateinit var toolbar: Toolbar
     private lateinit var adapter: PullRequestAdapter
-    private lateinit var listpullrequest : MutableList<PullRequestModel>
+    private val viewmodel: PullRequestViewModel by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        intialSetup()
+        initialSetup()
 
         criador = intent.getStringExtra("criador").toString()
-        repositorio= intent.getStringExtra("repositorio").toString()
-
-        listpullrequest = mutableListOf()
+        repositorio = intent.getStringExtra("repositorio").toString()
 
     }
 
     override fun onResume() {
         super.onResume()
-
-        chargeListOfPullRequest(criador,repositorio)
+        viewmodel.chargeListOfPullRequest(criador, repositorio)
+        observer()
     }
 
-    fun chargeListOfPullRequest(autor: String, repo: String) {
+    private fun observer() {
 
-        val remote = RetrofitService.createService(PullRequestEndpoint::class.java)
-        val response= remote.getPullRequest(autor,repo)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+        viewmodel.pullrequest.observe(this) {
 
-                val objeto = it.asJsonArray
-                var i=0
-                try{
-                    objeto?.asJsonArray?.forEach {
-                        val listausuariospullrequest = objeto?.asJsonArray?.get(i)
-                        val usuariopullrequest = listausuariospullrequest?.asJsonObject
+            adapter = PullRequestAdapter(it)
+            _binding.ltvPullRequest.adapter = adapter
+        }
 
-                        listpullrequest.add(PullRequestModel(
-                            tituloPullRequests = formataString(usuariopullrequest?.asJsonObject?.get("title").toString()),
-                            dataPullRequests = formataDataString(usuariopullrequest?.asJsonObject?.get("created_at").toString()),
-                            body = formataString(usuariopullrequest?.asJsonObject?.get("body").toString()) ,
-                            user = User(login = formataString(usuariopullrequest?.getAsJsonObject("user")?.get("login").toString())),
-                        ))
-                        i++
-                    }
-
-                }catch(e:Exception){
-                    e.message?.let { Log.d(R.string.pull_request_error.toString(),it) }
-                    Toast.makeText(
-                        this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
-                    ).show()
-                }
-                adapter = PullRequestAdapter(listpullrequest)
-                _binding.ltvPullRequest.adapter= adapter
-
-
-            },{ it ->
-                it.message?.let { Log.d(R.string.pull_request_error.toString(),it) }
-                Toast.makeText(
-                    this, R.string.list_pullrequesters_error, Toast.LENGTH_LONG
-                ).show()
-
-
-            })
     }
 
-   private fun formataString(text: String): String {
-        var textModified = text.substring(1, text.length - 1)
-        return textModified
-    }
-
-   private fun formataDataString(dataText: String): String {
-        var textModified = dataText.substring(1, dataText.length - 1)
-        textModified = textModified.substring(0,10)
-        return textModified
-   }
-
-    private fun intialSetup(){
+    private fun initialSetup() {
 
         _binding = ActivityPullRequestBinding.inflate(layoutInflater)
         setContentView(_binding.root)
@@ -110,7 +67,7 @@ class PullRequestActivity : AppCompatActivity() {
         _binding.ltvPullRequest.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun setUpBar(){
+    private fun setUpBar() {
         toolbar = _binding.toolbar
 
         val titleTextColor = _binding.toolbar.resources.getColor(R.color.white)

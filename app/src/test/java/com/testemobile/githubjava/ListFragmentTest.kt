@@ -38,9 +38,11 @@ class ListFragmentTest {
         MockitoAnnotations.initMocks(this)
 
         `when`(retrofit.create(RequestRepoEndpoint::class.java)).thenReturn(requestRepoEndpoint)
-        `when`(requestRepoEndpoint.getItems(Mockito.anyString())).thenReturn(gitHubRepo)
+//        `when`(requestRepoEndpoint.getItems(Mockito.anyString())).thenReturn(gitHubRepo)
 
     }
+
+
 
 }
 
