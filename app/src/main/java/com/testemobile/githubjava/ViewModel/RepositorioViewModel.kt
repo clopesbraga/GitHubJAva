@@ -37,6 +37,7 @@ class RepositorioViewModel(application: Application) : AndroidViewModel(applicat
                 if (response.isSuccessful) {
 
                     _gitHubRepo.postValue(response.body())
+                    sendToLocalData(response.body()!!.items)
                 }
             } catch (it: Exception) {
                 it.message?.let { Log.d(R.string.repository_error.toString(), it) }
